@@ -31,7 +31,10 @@ async function saveSubmissionToFile(submission) {
   }
 
   const filePath = path.join(submissionDir, `solution.${submission.lang}`);
+  console.log(`Writing to file: ${filePath}`); // Debug log
+
   fs.writeFileSync(filePath, submission.code);
+  console.log(`Written content: ${submission.code}`); // Debug log
 }
 
 async function commitAndPushChanges(submission) {
