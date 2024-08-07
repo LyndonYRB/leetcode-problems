@@ -22,7 +22,7 @@ async function fetchSubmissions() {
 
 function saveSubmissionToFile(submission) {
     // Adjust the base directory to the correct location
-    const baseDir = path.join(__dirname, 'leetcode-problems');
+    const baseDir = path.join(__dirname, 'leetcode-solutions');
     const dir = path.join(baseDir, submission.title_slug);
 
     if (!fs.existsSync(dir)){
@@ -45,6 +45,7 @@ async function main() {
         saveSubmissionToFile(submission);
         await commitAndPushChanges();
     }
+    await removeEmptyFiles();
 }
 
 async function commitAndPushChanges() {
@@ -66,6 +67,19 @@ async function commitAndPushChanges() {
         }
     } catch (error) {
         console.error('Error during Git operations:', error);
+    }
+}
+
+async function removeEmptyFiles() {
+    const mainDir = path.join(__dirname);
+    const files = fs.readdirSync(mainDir);
+
+    for (const file of files) {
+        const filePath = path.join(mainDir, file);
+        if (fs.statSync(filePath).isFile() && fs.readFileSync(filePath, 'utf8').trim() === '') {
+            fs.unlinkSync(filePath);
+            console.log(`Removed empty file: ${filePath}`);
+        }
     }
 }
 
