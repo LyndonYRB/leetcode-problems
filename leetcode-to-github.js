@@ -21,14 +21,21 @@ async function fetchSubmissions() {
 }
 
 function saveSubmissionToFile(submission) {
-    const dir = path.join(__dirname, 'leetcode-problems', submission.title_slug);
+    // Adjust the base directory to the correct location
+    const baseDir = path.join(__dirname, 'leetcode-problems');
+    const dir = path.join(baseDir, submission.title_slug);
+
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir, { recursive: true });
     }
-    const filePath = path.join(dir, `solution.${submission.lang_name.toLowerCase()}`);
+
+    // Save the files with .js extension
+    const filePath = path.join(dir, `solution.js`);
     const content = submission.code;
+
     console.log(`Writing to file: ${filePath}`);
     console.log(`Written content: ${content}`);
+    
     fs.writeFileSync(filePath, content, 'utf8');
 }
 
