@@ -5,12 +5,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "leetcode",
+    "solutions",
+    "automation"
+  ],
+  "author": "LyndonYRB",
   "license": "ISC",
-  "description": "",
+  "description": "A tool to fetch and commit LeetCode problem solutions to a GitHub repository.",
   "dependencies": {
     "axios": "^1.7.3",
+    "fs": "0.0.1-security",
+    "path": "0.12.7",
     "simple-git": "^3.25.0"
   }
 }
